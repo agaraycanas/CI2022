@@ -53,3 +53,4 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['init'] = 'anonymous/init';
+$route['ejercicios/t01/ej04']='ejercicios/t01/ej04/Uno';
