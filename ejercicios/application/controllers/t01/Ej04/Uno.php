@@ -4,7 +4,9 @@ class Uno extends CI_Controller {
         $this->unoGet();
     }
     public function UnoGet() {
-        frame($this,'t01/ej04/uno');
+        session_start();
+        $data['numeros']=isset($_SESSION['numeros'])?$_SESSION['numeros']:null;
+        frame($this,'t01/ej04/uno',$data);
     }
     public function UnoPost() {
         $n = isset($_POST['n'])?$_POST['n']:0;

@@ -9,6 +9,9 @@
 				<li>
 					<a href="<?=base_url()?>t01/ej04">Ej04</a>
 				</li>			
+				<li>
+					<a href="<?=base_url()?>t01/ej06">Ej06</a>
+				</li>			
 			</ul>
 		</li>
 	</ul>

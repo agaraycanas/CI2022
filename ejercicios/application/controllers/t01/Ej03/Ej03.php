@@ -12,10 +12,13 @@ class Ej03 extends CI_Controller {
         $n = $_POST['n'];
         $p = $_POST['p'];
         
-        $mensaje="1 5 4 7";
-        infoMsg($mensaje);
+        $mensaje='';
+        for ($i=0;$i<$n;$i++) {
+            for ($j=0;$j<$p;$j++) {
+                $mensaje .= $j.' ';
+            }
+        }
+        infoMsg($mensaje,'t01/ej03');
     }
-    
-    
 }
 ?>
