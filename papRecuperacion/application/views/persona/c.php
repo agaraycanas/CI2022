@@ -3,7 +3,7 @@
 	
 	<form action="<?=base_url()?>persona/cPost" method="post">
 		<label for="idLoginname">Loginname</label>
-		<input id="idLoginname" type="text" name="loginname" autofocus="autofocus"/>
+		<input id="idLoginname" type="text" name="loginname" autofocus="autofocus" required="required"/>
 		<br/>
 		
 		<label for="idNombre">Nombre</label>
