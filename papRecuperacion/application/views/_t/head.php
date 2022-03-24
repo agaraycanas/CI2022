@@ -11,7 +11,7 @@
     <script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
 	
-	<title>Plantilla</title>
+	<title>CI PAP Rec</title>
 </head>
 
 <body>
