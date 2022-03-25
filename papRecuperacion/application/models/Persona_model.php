@@ -21,5 +21,29 @@ class Persona_model extends CI_Model
     {
         return R::findAll('persona');
     }
+    
+    public function existeId($id) {
+        $bean = R::load('persona',$id);
+        return ($bean->id != 0);
+    }
+
+    public function getPersonabyId($idPersona) {
+        return $this->existeId($idPersona) ? R::load('persona',$idPersona) : null;
+    }
+
+    public function update($idPersona,$loginname,$nombre,$apellido) {
+        $persona = R::load('persona',$idPersona);
+        if  ($persona->loginname!=$loginname && R::findOne('persona','loginname=?',[$loginname]) != null ) {
+            throw new Exception("El loginanme $loginname ya existe");
+        }
+        
+        if  ($persona->loginname!=$loginname ) {
+            $persona -> loginname = $loginname;
+        }
+        
+        $persona -> nombre = $nombre;
+        $persona -> apellido = $apellido;
+        R::store($persona);
+    }
 }
 ?>

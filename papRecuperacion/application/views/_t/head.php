@@ -11,6 +11,7 @@
     <script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
 	
+	<link rel="icon" href="<?=base_url()?>favicon.ico" >
 	<title>CI PAP Rec</title>
 </head>
 
