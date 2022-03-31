@@ -3,6 +3,10 @@
 class Persona extends CI_Controller
 {
 
+    public function index() {
+        $this->r();    
+    }
+    
     public function c()
     {
         frame($this, 'persona/c');
@@ -68,6 +72,22 @@ class Persona extends CI_Controller
             errorMsg($e->getMessage(),'/persona/r');
         }
         
+    }
+
+    public function dPost() {
+        error_reporting(0);
+        $idPersona = isset($_GET['idPersona'])?$_GET['idPersona']:null;
+        if ($idPersona==null ) {
+            errorMsg('El id de la persona a borrar no puede ser nulo','persona/r');
+        }
+        $this->load->model('Persona_model');
+        try {
+            $this->Persona_model->delete($idPersona);
+            redirect(base_url().'persona/r');
+        }
+        catch (Exception $e) {
+            errorMsg($e->getMessage(),'persona/r');
+        }
     }
 }
 ?>

@@ -45,5 +45,13 @@ class Persona_model extends CI_Model
         $persona -> apellido = $apellido;
         R::store($persona);
     }
+
+    public function delete($idPersona) {
+        $persona = R::load('persona',$idPersona);
+        if ($persona->id == 0) {
+            throw new Exception("La persona de id $idPersona no existe");
+        }
+        R::trash($persona);
+    }
 }
 ?>
