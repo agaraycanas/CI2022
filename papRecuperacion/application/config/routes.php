@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['init'] = 'anonymous/init';
 $route['persona/d'] = 'persona/dPost';
+$route['pais/d'] = 'pais/dPost';

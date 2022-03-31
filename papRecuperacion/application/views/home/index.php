@@ -5,4 +5,9 @@
 				Personas
 			</button>
 		</form>
+		<form action="<?=base_url()?>pais/r">
+			<button>
+				Países
+			</button>
+		</form>
 </div>
