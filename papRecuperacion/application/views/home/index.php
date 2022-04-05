@@ -10,4 +10,9 @@
 				Países
 			</button>
 		</form>
+		<form action="<?=base_url()?>aficion/r">
+			<button>
+				Aficiones
+			</button>
+		</form>
 </div>
