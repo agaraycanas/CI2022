@@ -49,6 +49,12 @@ class Pais_model extends CI_Model
         if ($pais->id == 0) {
             throw new Exception("El país de id $idPais no existe");
         }
+        foreach ( $pais->alias('nace')->ownPersonaList as $persona) {
+            $persona->nace = null;
+            R::store($persona);
+        }
+        $pais->alias('nace')->ownPersonaList = [];
+        R::store($pais);
         R::trash($pais);
     }
 }

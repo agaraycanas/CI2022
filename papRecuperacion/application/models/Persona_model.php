@@ -3,7 +3,7 @@
 class Persona_model extends CI_Model
 {
 
-    public function create($loginname, $nombre, $apellido)
+    public function create($loginname, $nombre, $apellido, $idPaisNace)
     {
         if (R::findOne('persona', 'loginname=?', [
             $loginname
@@ -14,6 +14,11 @@ class Persona_model extends CI_Model
         $persona->loginname = $loginname;
         $persona->nombre = $nombre;
         $persona->apellido = $apellido;
+        $paisExiste = true;
+        if ($idPaisNace != null && $paisExiste) {
+            $pais = R::load('pais',$idPaisNace);
+            $persona->nace = $pais;
+        }
         R::store($persona);
     }
 

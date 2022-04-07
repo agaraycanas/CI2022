@@ -14,6 +14,17 @@
 		<input id="idApellido " type="text" name="apellido"/>
 		<br/>
 		
+		<div class="row">
+		<label for="idPaisNace">País de nacimiento</label>
+    	<select id="idPaisNace" name="idPaisNace">
+    		<?php foreach ($paises as $pais):?>
+    		<option value="<?=$pais->id?>">
+    			<?=$pais->nombre?>
+    		</option>
+    		<?php endforeach;?>
+    	</select>
+    	</div>
+		
 		<input type="submit"/>
 		<br/>
 	</form>
