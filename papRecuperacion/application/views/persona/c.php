@@ -17,6 +17,7 @@
 		<div class="row">
 		<label for="idPaisNace">País de nacimiento</label>
     	<select id="idPaisNace" name="idPaisNace">
+    		<option value="-1">----</option>
     		<?php foreach ($paises as $pais):?>
     		<option value="<?=$pais->id?>">
     			<?=$pais->nombre?>

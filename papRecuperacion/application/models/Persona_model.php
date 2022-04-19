@@ -14,11 +14,10 @@ class Persona_model extends CI_Model
         $persona->loginname = $loginname;
         $persona->nombre = $nombre;
         $persona->apellido = $apellido;
-        $paisExiste = true;
-        if ($idPaisNace != null && $paisExiste) {
-            $pais = R::load('pais',$idPaisNace);
-            $persona->nace = $pais;
-        }
+        $pais = ($idPaisNace != null && R::load('pais',$idPaisNace)->id != 0) ?
+                R::load('pais',$idPaisNace) :
+                null;
+        $persona->nace = $pais;
         R::store($persona);
     }
 
