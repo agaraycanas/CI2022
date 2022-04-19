@@ -36,7 +36,7 @@ class Persona_model extends CI_Model
         return $this->existeId($idPersona) ? R::load('persona',$idPersona) : null;
     }
 
-    public function update($idPersona,$loginname,$nombre,$apellido) {
+    public function update($idPersona,$loginname,$nombre,$apellido,$idPaisNace) {
         $persona = R::load('persona',$idPersona);
         if  ($persona->loginname!=$loginname && R::findOne('persona','loginname=?',[$loginname]) != null ) {
             throw new Exception("El loginanme $loginname ya existe");
@@ -48,6 +48,25 @@ class Persona_model extends CI_Model
         
         $persona -> nombre = $nombre;
         $persona -> apellido = $apellido;
+        /*
+        if (
+            ($persona->nace != null && ( ($idPais==null || $idPais<0) || $persona->fetchAs('pais')->nace->id != $idPais)) ||
+            ($persona->nace == null && ($idPais!=null && $idPais>=0) )
+            ) 
+            {
+            if ($idPais == null || $idPais < 0 ) {
+                $persona->nace = null;
+            }
+            else {
+                $persona->nombre='CAMBIADO'; //TODO DEBUG
+                $pais = R::load('pais',$idPais);
+                $persona->nace = $pais;
+                R::store($pais);
+            }
+        }
+        */
+        $paisNace = ($idPaisNace==null || $idPaisNace < 0 ) ? null : R::load('pais',$idPaisNace);
+        $persona -> nace = $paisNace;
         R::store($persona);
     }
 

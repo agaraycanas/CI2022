@@ -16,6 +16,20 @@
 		<input id="idApellido " type="text" name="apellido" value="<?=$persona->apellido?>" />
 		<br/>
 		
+		<div class="row">
+		<label for="idPaisNace">País de nacimiento</label>
+    	<select id="idPaisNace" name="idPaisNace">
+    		<option value="-1">---</option>
+    		<?php foreach ($paises as $pais):?>
+    		<option value="<?=$pais->id?>"
+    		<?= $pais->id == $persona->fetchAs('pais')->nace->id ?'selected="selected"' : '' ?>
+    		>
+    			<?=$pais->nombre?>
+    		</option>
+    		<?php endforeach;?>
+    	</select>
+    	</div>
+		
 		<input type="submit"/>
 		<br/>
 	</form>
