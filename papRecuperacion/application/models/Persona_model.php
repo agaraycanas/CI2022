@@ -3,7 +3,7 @@
 class Persona_model extends CI_Model
 {
 
-    public function create($loginname, $nombre, $apellido, $idPaisNace,$idsAficionGusta)
+    public function create($loginname, $nombre, $apellido, $idPaisNace, $idPaisVive, $idsAficionGusta, $idsAficionOdia)
     {
         if (R::findOne('persona', 'loginname=?', [
             $loginname
@@ -22,6 +22,12 @@ class Persona_model extends CI_Model
                 R::load('pais',$idPaisNace) :
                 null;
         $persona->nace = $pais;
+
+        // PAIS de RESIDENCIA
+        $pais = ($idPaisVive != null && R::load('pais',$idPaisVive)->id != 0) ?
+            R::load('pais',$idPaisVive) :
+            null;
+        $persona->vive = $pais;
         
         // AFICIONES QUE LE GUSTAN
         foreach ($idsAficionGusta as $idAficionGusta) {
@@ -29,6 +35,14 @@ class Persona_model extends CI_Model
             $gusto->persona = $persona;
             $gusto->aficion = R::load('aficion',$idAficionGusta);
             R::store($gusto);
+        }
+        
+        // AFICIONES QUE ODIA
+        foreach ($idsAficionOdia as $idAficionOdia) {
+            $odio = R::dispense('odio');
+            $odio->persona = $persona;
+            $odio->aficion = R::load('aficion',$idAficionOdia);
+            R::store($odio);
         }
         
         R::store($persona);

@@ -24,14 +24,16 @@ class Persona extends CI_Controller
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : 'John';
         $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : 'Doe';
         $idPaisNace= isset($_POST['idPaisNace']) ? $_POST['idPaisNace'] : null;
+        $idPaisVive= isset($_POST['idPaisVive']) ? $_POST['idPaisVive'] : null;
         $idsAficionGusta = isset($_POST['idAficionGusta']) ? $_POST['idAficionGusta'] : [] ;
+        $idsAficionOdia = isset($_POST['idAficionOdia']) ? $_POST['idAficionOdia'] : [] ;
         
         try {
             if ($loginname == null) {
                 throw new Exception('El loginname no puede ser null');
             }
             $this->load->model('Persona_model');
-            $this->Persona_model->create($loginname, $nombre, $apellido,$idPaisNace,$idsAficionGusta);
+            $this->Persona_model->create($loginname, $nombre, $apellido,$idPaisNace,$idPaisVive,$idsAficionGusta,$idsAficionOdia);
             redirect(base_url() . 'persona/r');
         } catch (Exception $e) {
             errorMsg($e->getMessage(), 'persona/c');

@@ -1,3 +1,4 @@
+<?php error_reporting(0); ?>
 <div class="container">
 	<h1>Lista de países</h1>
 	
@@ -8,6 +9,8 @@
 	<table class="table table-striped">
 		<tr>
 			<th>Nombre</th>
+			<th># nacidos </th>
+			<th># residentes </th>
 			<th>Acciones</th>
 		</tr>
 		
@@ -15,6 +18,10 @@
 		<tr>
 			<td> <?=$pais->nombre?> </td>
 
+			<td> <?=$pais->alias('nace')->countOwn('persona') ?></td>
+
+			<td> <?=$pais->alias('vive')->countOwn('persona') ?></td>
+			
 			<td class="row"> 
 				<form action="<?=base_url()?>pais/u">
 					<input type="hidden" name="idPais" value="<?=$pais->id?>"/>
