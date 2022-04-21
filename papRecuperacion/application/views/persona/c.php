@@ -25,6 +25,20 @@
     		<?php endforeach;?>
     	</select>
     	</div>
+    	
+    	<div class="row">
+    	<fieldset>
+        	<legend>
+        	Aficiones (gustos)
+        	</legend>
+			
+			<?php foreach ($aficiones as $aficion): ?>
+			<input id="id-gusta-<?=$aficion->id?>" type="checkbox" name="idAficionGusta[]" value="<?=$aficion->id?>"/>
+			<label for="id-gusta-<?=$aficion->id?>"><?=$aficion->nombre?></label>    	
+			<?php endforeach;?>
+			
+    	</fieldset>
+    	</div>
 		
 		<input type="submit"/>
 		<br/>

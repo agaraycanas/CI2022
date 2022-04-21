@@ -11,23 +11,27 @@ class Persona extends CI_Controller
     {
         error_reporting(0);
         $this->load->model('Pais_model');
+        $this->load->model('Aficion_model');
         $data['paises'] = $this->Pais_model->findAll();
+        $data['aficiones'] = $this->Aficion_model->findAll();
         frame($this, 'persona/c', $data);
     }
 
     public function cPost()
     {
+        error_reporting(0);
         $loginname = isset($_POST['loginname']) ? $_POST['loginname'] : null;
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : 'John';
         $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : 'Doe';
         $idPaisNace= isset($_POST['idPaisNace']) ? $_POST['idPaisNace'] : null;
+        $idsAficionGusta = isset($_POST['idAficionGusta']) ? $_POST['idAficionGusta'] : [] ;
         
         try {
             if ($loginname == null) {
                 throw new Exception('El loginname no puede ser null');
             }
             $this->load->model('Persona_model');
-            $this->Persona_model->create($loginname, $nombre, $apellido,$idPaisNace);
+            $this->Persona_model->create($loginname, $nombre, $apellido,$idPaisNace,$idsAficionGusta);
             redirect(base_url() . 'persona/r');
         } catch (Exception $e) {
             errorMsg($e->getMessage(), 'persona/c');

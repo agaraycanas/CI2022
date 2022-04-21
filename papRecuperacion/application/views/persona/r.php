@@ -11,6 +11,7 @@
 			<th>Nombre</th>
 			<th>Apellido</th>
 			<th>País nac.</th> 
+			<th>Aficiones (gusta)</th>
 			<th>Acciones</th>
 		</tr>
 		
@@ -20,6 +21,13 @@
 			<td> <?=$persona->nombre?> </td>
 			<td> <?=$persona->apellido?> </td>
 			<td> <?=$persona->fetchAs('pais')->nace->nombre?> </td>
+			
+			<td>
+				<?php foreach ($persona->ownGustoList as $gusto):?>
+				<?= $gusto->aficion->nombre ?> 
+				<?php endforeach;?>
+			</td>
+			
 			<td class="row"> 
 				<form action="<?=base_url()?>persona/u">
 					<input type="hidden" name="idPersona" value="<?=$persona->id?>"/>

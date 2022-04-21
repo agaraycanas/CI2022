@@ -3,21 +3,34 @@
 class Persona_model extends CI_Model
 {
 
-    public function create($loginname, $nombre, $apellido, $idPaisNace)
+    public function create($loginname, $nombre, $apellido, $idPaisNace,$idsAficionGusta)
     {
         if (R::findOne('persona', 'loginname=?', [
             $loginname
         ]) != null) {
             throw new Exception('El loginname ' . $loginname . ' ya existe');
         }
+        
         $persona = R::dispense('persona');
+        
         $persona->loginname = $loginname;
         $persona->nombre = $nombre;
         $persona->apellido = $apellido;
+        
+        // PAIS de NACIMIENTO
         $pais = ($idPaisNace != null && R::load('pais',$idPaisNace)->id != 0) ?
                 R::load('pais',$idPaisNace) :
                 null;
         $persona->nace = $pais;
+        
+        // AFICIONES QUE LE GUSTAN
+        foreach ($idsAficionGusta as $idAficionGusta) {
+            $gusto = R::dispense('gusto');
+            $gusto->persona = $persona;
+            $gusto->aficion = R::load('aficion',$idAficionGusta);
+            R::store($gusto);
+        }
+        
         R::store($persona);
     }
 
