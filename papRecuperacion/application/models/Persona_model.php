@@ -62,7 +62,7 @@ class Persona_model extends CI_Model
         return $this->existeId($idPersona) ? R::load('persona',$idPersona) : null;
     }
 
-    public function update($idPersona,$loginname,$nombre,$apellido,$idPaisNace) {
+    public function update($idPersona,$loginname,$nombre,$apellido,$idPaisNace,$idPaisVive,$idsAficionGusta,$idsAficionOdia) {
         $persona = R::load('persona',$idPersona);
         if  ($persona->loginname!=$loginname && R::findOne('persona','loginname=?',[$loginname]) != null ) {
             throw new Exception("El loginanme $loginname ya existe");
@@ -74,26 +74,46 @@ class Persona_model extends CI_Model
         
         $persona -> nombre = $nombre;
         $persona -> apellido = $apellido;
-        /*
-        if (
-            ($persona->nace != null && ( ($idPais==null || $idPais<0) || $persona->fetchAs('pais')->nace->id != $idPais)) ||
-            ($persona->nace == null && ($idPais!=null && $idPais>=0) )
-            ) 
-            {
-            if ($idPais == null || $idPais < 0 ) {
-                $persona->nace = null;
-            }
-            else {
-                $persona->nombre='CAMBIADO'; //TODO DEBUG
-                $pais = R::load('pais',$idPais);
-                $persona->nace = $pais;
-                R::store($pais);
-            }
-        }
-        */
+      
         $paisNace = ($idPaisNace==null || $idPaisNace < 0 ) ? null : R::load('pais',$idPaisNace);
         $persona -> nace = $paisNace;
+
+        $paisVive = ($idPaisVive==null || $idPaisVive < 0 ) ? null : R::load('pais',$idPaisVive);
+        $persona -> vive = $paisVive;
+
         R::store($persona);
+        
+        
+        foreach ($persona->ownGustoList as $gusto) {
+            R::trash($gusto);
+            R::store($persona);
+        }
+        
+        $persona->ownGustoList = [];
+        R::store($persona);
+        
+        
+        foreach ($persona->ownOdioList as $odio) {
+            R::trash($odio);
+            R::store($persona);
+        }
+        $persona->ownOdioList = [];
+        R::store($persona);
+        
+        
+        foreach ($idsAficionGusta as $idAficionGusta) {
+            $gusto = R::dispense('gusto');
+            $gusto -> aficion = R::load('aficion',$idAficionGusta);
+            $gusto -> persona = $persona;
+            R::store($gusto);
+        }
+        
+        foreach ($idsAficionOdia as $idAficionOdia) {
+            $odio = R::dispense('odio');
+            $odio -> aficion = R::load('aficion',$idAficionOdia);
+            $odio -> persona = $persona;
+            R::store($odio);
+        }
     }
 
     public function delete($idPersona) {

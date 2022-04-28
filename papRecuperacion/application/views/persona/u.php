@@ -1,3 +1,16 @@
+<?php 
+function tiene($idAficion,$persona,$tipo) {
+    $sol = false;
+    $coleccion = $tipo=='gusto' ? $persona->ownGustoList : $persona->ownOdioList ;
+    foreach ($coleccion as $gustodio) {
+        if ($gustodio ->aficion->id == $idAficion) {
+            $sol = true;
+        }
+    }
+    return $sol;
+}
+?>
+
 <div class="container">
 	<h1>Editar persona</h1>
 	
@@ -29,6 +42,49 @@
     		<?php endforeach;?>
     	</select>
     	</div>
+
+		<div class="row">
+		<label for="idPaisVive">País de residencia</label>
+    	<select id="idPaisVive" name="idPaisVive">
+    		<option value="-1">---</option>
+    		<?php foreach ($paises as $pais):?>
+    		<option value="<?=$pais->id?>"
+    		<?= $pais->id == $persona->fetchAs('pais')->vive->id ?'selected="selected"' : '' ?>
+    		>
+    			<?=$pais->nombre?>
+    		</option>
+    		<?php endforeach;?>
+    	</select>
+    	</div>
+    	
+    	<div class="row">
+    	<fieldset>
+        	<legend>
+        	Aficiones (gustos)
+        	</legend>
+			<?php foreach ($aficiones as $aficion): ?>
+			<input 
+			<?= tiene($aficion->id,$persona,'gusto') ? 'checked="checked"' : '' ?>
+			id="id-gusta-<?=$aficion->id?>" type="checkbox" name="idsAficionGusta[]" value="<?=$aficion->id?>" />
+			<label for="id-gusta-<?=$aficion->id?>"><?=$aficion->nombre?></label>    	
+			<?php endforeach;?>
+    	</fieldset>
+    	</div>
+
+    	<div class="row">
+    	<fieldset>
+        	<legend>
+        	Aficiones (odios)
+        	</legend>
+			<?php foreach ($aficiones as $aficion): ?>
+			<input 
+			<?= tiene($aficion->id,$persona,'odio') ? 'checked="checked"' : '' ?>
+			id="id-odia-<?=$aficion->id?>" type="checkbox" name="idsAficionOdia[]" value="<?=$aficion->id?>" />
+			<label for="id-odia-<?=$aficion->id?>"><?=$aficion->nombre?></label>    	
+			<?php endforeach;?>
+    	</fieldset>
+    	</div>
+    	    	
 		
 		<input type="submit"/>
 		<br/>

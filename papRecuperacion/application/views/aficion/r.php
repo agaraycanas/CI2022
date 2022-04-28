@@ -8,12 +8,18 @@
 	<table class="table table-striped">
 		<tr>
 			<th>Nombre</th>
+			<th>#gustosos</th>
+			<th>#odiosos</th>
 			<th>Acciones</th>
 		</tr>
 		
 		<?php foreach ($aficiones as $aficion):?>
 		<tr>
 			<td> <?=$aficion->nombre?> </td>
+			
+			<td> <?=$aficion->countOwn('gusto')?> </td>
+
+			<td> <?=$aficion->countOwn('odio')?> </td>
 
 			<td class="row"> 
 				<form action="<?=base_url()?>aficion/u">

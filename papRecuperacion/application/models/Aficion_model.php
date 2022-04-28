@@ -56,6 +56,13 @@ class Aficion_model extends CI_Model
         if ($aficion->id == 0) {
             throw new Exception("La afición de id $idAficion no existe");
         }
+        foreach ($aficion->ownGustoList as $gusto) {
+            R::trash($gusto);
+        }
+        foreach ($aficion->ownOdioList as $odio) {
+            R::trash($odio);
+        }
+        
         R::trash($aficion);
     }
 }
