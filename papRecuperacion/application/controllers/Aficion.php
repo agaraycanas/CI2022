@@ -14,6 +14,7 @@ class Aficion extends CI_Controller
 
     public function cPost()
     {
+        error_reporting(0);
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
 
         try {

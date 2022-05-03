@@ -3,6 +3,20 @@
 class Aficion_model extends CI_Model
 {
 
+    public function limpiarGyO() {
+        $gustos = R::findAll('gusto');
+        foreach ($gustos as $g) {
+            if ($g->persona == null || $g->aficion == null) {
+                R::trash($g);
+            }
+        }
+        $odios = R::findAll('odio');
+        foreach ($odios as $o) {
+            if ($o->persona == null || $o->aficion == null) {
+                R::trash($o);
+            }
+        }
+    }
     public function create($nombre)
     {
         if ($nombre==null || $nombre=='') {
@@ -16,6 +30,7 @@ class Aficion_model extends CI_Model
         $aficion = R::dispense('aficion');
         $aficion->nombre = $nombre;
         R::store($aficion);
+        $this->limpiarGyO();
     }
 
     public function findAll()
@@ -49,6 +64,7 @@ class Aficion_model extends CI_Model
             $aficion->nombre = $nombre;
         }
         R::store($aficion);
+        $this->limpiarGyO();
     }
 
     public function delete($idAficion) {
@@ -64,6 +80,7 @@ class Aficion_model extends CI_Model
         }
         
         R::trash($aficion);
+        $this->limpiarGyO();
     }
 }
 ?>

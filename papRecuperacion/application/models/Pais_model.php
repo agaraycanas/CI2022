@@ -34,7 +34,7 @@ class Pais_model extends CI_Model
         $pais = R::load('pais',$idPais);
         
         
-        if  ($pais->nombre != $nombre && R::findOne('pais','nombre=?',[$nombre]) != null ) {
+        if  (strtolower($pais->nombre) != strtolower($nombre) && R::findOne('pais','nombre=?',[$nombre]) != null ) {
             throw new Exception("El país $nombre ya existe");
         }
         
