@@ -2,6 +2,9 @@
 class Home_model extends CI_Model {
     public function init() {
         
+        //Borrado de toda la BBDD
+        R::nuke();
+        
         // CREACIÓN ESTRUCTURA
         
         // PAÍS
@@ -46,5 +49,18 @@ class Home_model extends CI_Model {
         R::trash($od);
         
         
+    }
+    
+    public function empty() {
+        
+        $tablas = R::inspect();
+        return (
+            !in_array('aficion',$tablas) ||
+            !in_array('gusto',$tablas) ||
+            !in_array('odio',$tablas) ||
+            !in_array('pais',$tablas) ||
+            !in_array('persona',$tablas) ||
+            sizeof($tablas)>5
+            );
     }
 }

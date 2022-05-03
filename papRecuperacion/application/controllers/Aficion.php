@@ -9,6 +9,7 @@ class Aficion extends CI_Controller
     
     public function c()
     {
+        error_reporting(0);
         frame($this, 'aficion/c');
     }
 
@@ -57,6 +58,8 @@ class Aficion extends CI_Controller
     }
 
     public function uPost() {
+        error_reporting(0);
+        
         $idAficion = isset($_POST['idAficion'])?$_POST['idAficion']:null;
         $nombre = isset($_POST['nombre'])?$_POST['nombre']:null;
      

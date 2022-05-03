@@ -9,11 +9,13 @@ class Pais extends CI_Controller
     
     public function c()
     {
+        error_reporting(0);
         frame($this, 'pais/c');
     }
 
     public function cPost()
     {
+        error_reporting(0);
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
 
         try {
@@ -56,6 +58,8 @@ class Pais extends CI_Controller
     }
 
     public function uPost() {
+        error_reporting(0);
+        
         $idPais = isset($_POST['idPais'])?$_POST['idPais']:null;
         $nombre = isset($_POST['nombre'])?$_POST['nombre']:null;
      

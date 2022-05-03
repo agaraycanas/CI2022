@@ -1,14 +1,17 @@
 <?php
 class Home extends CI_Controller {
     public function index() {
-        $data['uno'] = 'dos';
-        frame($this,'home/index',$data);
+        error_reporting(0);
+        
+        $this->load->model('Home_model');
+        
+        if ($this->Home_model->empty()) {
+            $this->Home_model->init();
+            infoMsg('BBDD inicializada');
+        }
+        else {
+            frame($this,'home/index');
+        }
     }
     
-    public function init() {
-        error_reporting(0);
-        $this->load->model('Home_model');
-        $this->Home_model->init();
-        infoMsg('BBDD inicializada');
-    }
 }

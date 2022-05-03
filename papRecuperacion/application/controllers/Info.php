@@ -5,6 +5,8 @@ class Info extends CI_Controller
 
     public function index()
     {
+        error_reporting(0);
+        
         session_start();
         $data['msg'] = isset($_SESSION['_msg']) ? $_SESSION['_msg']['text'] : 'Vuelve al menú principal';
         $data['severity'] = isset($_SESSION['_msg']) ? $_SESSION['_msg']['severity'] : 'info';
