@@ -3,7 +3,8 @@ class Quiniela extends CI_Controller {
     
     public function jornadas() {
         error_reporting(0);
-        $data['nJornadas'] = [1,4,5];
+        $this->load->model('Partido_model');
+        $data['nJornadas'] = $this->Partido_model->getNJornadas();
         frame($this,'quiniela/jornadas',$data);
     }
     

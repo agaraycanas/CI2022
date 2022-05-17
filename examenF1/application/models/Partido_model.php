@@ -5,8 +5,27 @@ class Partido_model extends CI_Model {
         return R::find('partido','fecha=?',[$fecha]);
     }
     
+    /**
+     * 
+     * Devuelve partidos jugados en una jornada determinada
+     */
     public function getByNJornada($nJornada) {
-        return R::findAll('partido');
+        return R::find('partido','n_jornada=? order by fecha',[$nJornada]);
+    }
+    
+    /**
+     * Devuelve un array con los números de las jornadas que se han jugado
+     */
+    public function getNJornadas() {
+        $partidos = R::findAll('partido');
+        $jornadas = [];
+        foreach ($partidos as $partido) {
+            $nJornada = $partido->nJornada;
+            if (!in_array($nJornada, $jornadas)) {
+                $jornadas[] = $nJornada;
+            }
+        }
+        return $jornadas;
     }
     
     public function findAll() {
